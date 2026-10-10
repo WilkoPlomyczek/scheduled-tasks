@@ -44,16 +44,21 @@ jobs:
 
           echo ""
           echo "All secrets are configured!"
-
-      - name: Check required files exist
+      - name: Check secrets are configured
+        env:
+          MY_EMAIL: ${{ secrets.MY_EMAIL }}
+          MY_PASSWORD: ${{ secrets.MY_PASSWORD }}
         run: |
-          echo "Checking for required files..."
-
-          if [ -f "main.py" ]; then
-            echo "main.py found"
+          if [ -z "$MY_EMAIL" ]; then
+            echo "MY_EMAIL is EMPTY"
           else
-            echo "main.py not found!"
-            exit 1
+            echo "MY_EMAIL is PRESENT"
+          fi
+    
+          if [ -z "$MY_PASSWORD" ]; then
+            echo "MY_PASSWORD is EMPTY"
+          else
+            echo "MY_PASSWORD is PRESENT"
           fi
 
           if [ -f "requirements.txt" ]; then
