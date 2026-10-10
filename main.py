@@ -3,6 +3,7 @@ import datetime as dt
 import pandas
 import random
 import smtplib
+import os
 # 1. Update the birthdays.csv
 
 # 2. Check if today matches a birthday in the birthdays.csv
@@ -18,8 +19,9 @@ for x in birthdays["month"]:
             text = letter.read()
             text = text.replace("[NAME]", f"{name}")
             print(text)
-            my_email = "ania.wilkosz.maria@gmail.com"
-            password = "kbmi faty soij chir"
+# AFTER (secrets stored securely in GitHub)
+        my_email = os.environ.get("MY_EMAIL")
+        password = os.environ.get("MY_PASSWORD")
 
         with smtplib.SMTP("smtp.gmail.com", 587, local_hostname="localhost") as connection:
             connection.starttls()
